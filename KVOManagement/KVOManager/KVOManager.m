@@ -36,16 +36,10 @@
 
 #pragma mark - Public methods
 
-- (void)addObserver:(id)observer forKeyPath:(NSString*)keypath andCallbackBlock:(KVOManagementBlockCallback)block
+- (void)addObservation:(KVOObservation*)observation
 {
-    KVOObservationInformation* information = [KVOObservationInformation new];
-    information.observee = _object;
-    information.observer = observer;
-    information.callback = block;
-    
-    KVOObservation* observation = [[KVOObservation alloc] initWithInformation:information];
-    
     [self.observations addObject:observation];
+    [observation start];
 }
 
 #pragma mark - Private methods

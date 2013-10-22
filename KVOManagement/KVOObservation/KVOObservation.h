@@ -19,5 +19,6 @@
 @property(nonatomic, readonly) KVOObservationInformation* information;
 
 - (id)initWithInformation:(KVOObservationInformation*)information;
+- (void)start;
 
 @end

@@ -10,9 +10,13 @@
 #import "KVOManagementConstants.h"
 
 @interface KVOObservationInformation : NSObject
+{
+    KVOManagementBlockCallback _callback;
+}
 
 @property (nonatomic, weak)id observer;
 @property (nonatomic, weak)id observee;
-@property (nonatomic, readwrite)KVOManagementBlockCallback callback;
+@property (nonatomic, strong)KVOManagementBlockCallback callback;
+@property (nonatomic, copy)NSString* keypath;
 
 @end

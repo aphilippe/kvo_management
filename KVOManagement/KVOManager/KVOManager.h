@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "KVOManagementConstants.h"
 
+@class KVOObservation;
 @interface KVOManager : NSObject
 {
     id _object;
@@ -19,6 +20,6 @@
 - (id)initWithObject:(id)object;
 
 // Public methods
-- (void)addObserver:(id)observer forKeyPath:(NSString*)keypath andCallbackBlock:(KVOManagementBlockCallback)block;
+- (void)addObservation:(KVOObservation*)observation;
 
 @end

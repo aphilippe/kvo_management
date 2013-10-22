@@ -9,6 +9,8 @@
 #import "NSObject+KVOManagement.h"
 #import <objc/runtime.h>
 #import "KVOManager.h"
+#import "KVOObservation.h"
+#import "KVOObservationInformation.h"
 
 static const NSString* KVOManagementContext = @"KVOManagementContext";
 
@@ -22,7 +24,15 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
 
 - (void)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback
 {
-    [[object kvoManager] addObserver:self forKeyPath:keypath andCallbackBlock:callback];
+    KVOObservationInformation* information = [[KVOObservationInformation alloc] init];
+    information.observee = object;
+    information.observer = self;
+    information.keypath = keypath;
+    information.callback = callback;
+    
+    KVOObservation* observation = [[KVOObservation alloc] initWithInformation:information];
+    
+    [[object kvoManager] addObservation:observation];
 }
 
 #pragma mark - Getters / Setters

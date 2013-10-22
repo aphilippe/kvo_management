@@ -10,4 +10,6 @@
 
 @interface ViewController : UIViewController
 
+@property(nonatomic, readwrite) int count;
+
 @end
