@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KVOManagementConstants.h"
+
+@class KVOObservationInformation;
 
 @interface KVOObservation : NSObject
+{
+    KVOObservationInformation* _information;
+}
 
+@property(nonatomic, readonly) KVOObservationInformation* information;
 
-// TODO
+- (id)initWithInformation:(KVOObservationInformation*)information;
 
 @end

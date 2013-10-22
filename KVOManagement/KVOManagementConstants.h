@@ -1,1 +1,1 @@
-typedef void(^KVOManagementCallback)(id object, NSDictionary* change);
+typedef void(^KVOManagementBlockCallback)(id object, NSDictionary* change);

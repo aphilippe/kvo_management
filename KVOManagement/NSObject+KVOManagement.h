@@ -15,8 +15,6 @@
 
 @property(nonatomic, readonly) KVOManager* kvoManager;
 
-- (void)observeObject:(id)object forKeyPath:(NSString*)keyPath andBlock:(KVOManagementCallback)callback;
-- (void)observeObject:(id)object forKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options andBlock:(KVOManagementCallback)callback;
-- (void)observeObject:(id)object forKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options onQueue:(NSOperationQueue*)queue andBlock:(KVOManagementCallback)callback;
+- (void)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback;
 
 @end

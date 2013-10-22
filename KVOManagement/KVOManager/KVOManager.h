@@ -10,7 +10,15 @@
 #import "KVOManagementConstants.h"
 
 @interface KVOManager : NSObject
+{
+    id _object;
+    NSMutableArray* _observations;
+}
 
-- (void)addObservationOnObject:(id)object forKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options onQueue:(NSOperationQueue*)queue andBlock:(KVOManagementCallback)callback;
+// Lifre cycle
+- (id)initWithObject:(id)object;
+
+// Public methods
+- (void)addObserver:(id)observer forKeyPath:(NSString*)keypath andCallbackBlock:(KVOManagementBlockCallback)block;
 
 @end

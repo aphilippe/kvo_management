@@ -20,35 +20,9 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
 
 #pragma mark - Public methods
 
-- (void)addObserverForKeyPath:(NSString*)keyPath andBlock:(KVOManagementCallback)callback
+- (void)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback
 {
-    [self addObserverForKeyPath:keyPath options:0 andBlock:callback];
-}
-
-- (void)addObserverForKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options andBlock:(KVOManagementCallback)callback
-{
-    [self addObserverForKeyPath:keyPath options:options onQueue:nil andBlock:callback];
-}
-
-- (void)addObserverForKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options onQueue:(NSOperationQueue*)queue andBlock:(KVOManagementCallback)callback
-{
-    // TODO: créer un KVOObservations
-    // le garder en mémoire
-}
-
-- (void)observeObject:(id)object forKeyPath:(NSString*)keyPath andBlock:(KVOManagementCallback)callback
-{
-    [self observeObject:object forKeyPath:keyPath options:0 andBlock:callback];
-}
-
-- (void)observeObject:(id)object forKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options andBlock:(KVOManagementCallback)callback
-{
-    [self observeObject:object forKeyPath:keyPath options:options onQueue:nil andBlock:callback];
-}
-
-- (void)observeObject:(id)object forKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options onQueue:(NSOperationQueue*)queue andBlock:(KVOManagementCallback)callback
-{
-    // TODO
+    [[object kvoManager] addObserver:self forKeyPath:keypath andCallbackBlock:callback];
 }
 
 #pragma mark - Getters / Setters
@@ -59,7 +33,7 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
     
     if (manager == nil)
     {
-        manager = [KVOManager new];
+        manager = [[KVOManager alloc] initWithObject:self];
         objc_setAssociatedObject(self, (__bridge void*)KVOManagementManagerKey, manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     

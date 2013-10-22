@@ -7,7 +7,39 @@
 //
 
 #import "KVOObservation.h"
+#import "KVOObservationInformation.h"
+
+@interface KVOObservation()
+
+- (void)start;
+
+@end
 
 @implementation KVOObservation
+
+@synthesize information = _information;
+
+#pragma mark - Life cycle
+
+- (id)initWithInformation:(KVOObservationInformation*)information
+{
+    self = [super init];
+    
+    if (self)
+    {
+        _information = information;
+        
+        [self start];
+    }
+    
+    return self;
+}
+
+#pragma mark - Private methods
+
+- (void)start
+{
+    // TODO
+}
 
 @end

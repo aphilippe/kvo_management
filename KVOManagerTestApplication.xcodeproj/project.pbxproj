@@ -24,6 +24,7 @@
 		B7A66BC2180D95BF00262DDA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A66BA4180D95BF00262DDA /* UIKit.framework */; };
 		B7A66BCA180D95BF00262DDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7A66BC8180D95BF00262DDA /* InfoPlist.strings */; };
 		B7A66BCC180D95BF00262DDA /* KVOManagerTestApplicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A66BCB180D95BF00262DDA /* KVOManagerTestApplicationTests.m */; };
+		B7AF76FF18169C450088911A /* KVOObservationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AF76FE18169C450088911A /* KVOObservationInformation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		B7A66BC7180D95BF00262DDA /* KVOManagerTestApplicationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KVOManagerTestApplicationTests-Info.plist"; sourceTree = "<group>"; };
 		B7A66BC9180D95BF00262DDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B7A66BCB180D95BF00262DDA /* KVOManagerTestApplicationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KVOManagerTestApplicationTests.m; sourceTree = "<group>"; };
+		B7AF76FD18169C450088911A /* KVOObservationInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVOObservationInformation.h; sourceTree = "<group>"; };
+		B7AF76FE18169C450088911A /* KVOObservationInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVOObservationInformation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,7 @@
 		B7A5AD32180EF6D6001F3B50 /* KVOManagement */ = {
 			isa = PBXGroup;
 			children = (
+				B7AF76FC18169C2D0088911A /* KVOObservationInformation */,
 				B7A5AD3A180EF714001F3B50 /* KVOObservation */,
 				B7A5AD36180EF6E6001F3B50 /* KVOManager */,
 				B7A5AD33180EF6D6001F3B50 /* NSObject+KVOManagement.h */,
@@ -191,6 +195,15 @@
 				B7A66BC8180D95BF00262DDA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B7AF76FC18169C2D0088911A /* KVOObservationInformation */ = {
+			isa = PBXGroup;
+			children = (
+				B7AF76FD18169C450088911A /* KVOObservationInformation.h */,
+				B7AF76FE18169C450088911A /* KVOObservationInformation.m */,
+			);
+			path = KVOObservationInformation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +307,7 @@
 				B7A66BB1180D95BF00262DDA /* AppDelegate.m in Sources */,
 				B7A66BAD180D95BF00262DDA /* main.m in Sources */,
 				B7A5AD39180EF6F4001F3B50 /* KVOManager.m in Sources */,
+				B7AF76FF18169C450088911A /* KVOObservationInformation.m in Sources */,
 				B7A5AD35180EF6D6001F3B50 /* NSObject+KVOManagement.m in Sources */,
 				B7A5AD3D180EF724001F3B50 /* KVOObservation.m in Sources */,
 			);
