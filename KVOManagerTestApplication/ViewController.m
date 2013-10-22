@@ -9,7 +9,25 @@
 #import "ViewController.h"
 #import "NSObject+KVOManagement.h"
 
+
+@interface Object : NSObject
+
+@property(nonatomic, readwrite) int count;
+
+@end
+
+@implementation Object
+
+
+
+@end
+
+
 @interface ViewController ()
+{
+    Object* _object;
+    __weak KVOManager* plop;
+}
 
 @end
 
@@ -19,8 +37,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self observeObject:self atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
-        NSLog(@"It's working !!!");
+//    [self observeObject:self atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
+//        NSLog(@"self count changed");
+//    }];
+    
+    _object = [Object new];
+    [self observeObject:_object atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
+        NSLog(@"object count changed");
+        
     }];
 }
 
@@ -33,6 +57,12 @@
 - (IBAction)selector:(id)sender
 {
     self.count++;
+}
+
+- (IBAction)selectObject:(id)sender
+{
+    _object.count++;
+    _object = nil;
 }
 
 @end
