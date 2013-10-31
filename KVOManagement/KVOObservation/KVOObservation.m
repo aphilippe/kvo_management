@@ -35,7 +35,7 @@ static NSString* const KVOContext = @"KVOContext";
 
 - (void)dealloc
 {
-    [_information.observee removeObserver:_information.observer forKeyPath:_information.keypath];
+    [_information.observee removeObserver:self forKeyPath:_information.keypath context:(__bridge void*)KVOContext];
 }
 
 #pragma mark - Private methods

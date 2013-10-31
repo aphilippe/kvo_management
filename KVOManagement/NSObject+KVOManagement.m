@@ -12,13 +12,16 @@
 #import "KVOObservation.h"
 #import "KVOObservationInformation.h"
 
+@interface NSObject()
+@property(nonatomic, readonly, strong) KVOManager* kvoManager;
+
+@end
+
 static const NSString* KVOManagementContext = @"KVOManagementContext";
 
 static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoManager";
 
 @implementation NSObject (KVOManagement)
-
-@dynamic kvoManager;
 
 #pragma mark - Public methods
 

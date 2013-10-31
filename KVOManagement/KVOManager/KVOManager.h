@@ -12,7 +12,7 @@
 @class KVOObservation;
 @interface KVOManager : NSObject
 {
-    id _object;
+    __weak id _object;
     NSMutableArray* _observations;
 }
 

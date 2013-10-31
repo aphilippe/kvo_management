@@ -9,11 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "KVOManagementConstants.h"
 
-@class KVOManager;
-
 @interface NSObject (KVOManagement)
-
-@property(nonatomic, readonly) KVOManager* kvoManager;
 
 - (void)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback;
 

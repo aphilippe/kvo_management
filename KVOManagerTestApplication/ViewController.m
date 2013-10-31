@@ -18,15 +18,12 @@
 
 @implementation Object
 
-
-
 @end
 
 
 @interface ViewController ()
 {
     Object* _object;
-    __weak KVOManager* plop;
 }
 
 @end
@@ -57,12 +54,12 @@
 - (IBAction)selector:(id)sender
 {
     self.count++;
+    _object = nil;
 }
 
 - (IBAction)selectObject:(id)sender
 {
     _object.count++;
-    _object = nil;
 }
 
 @end
