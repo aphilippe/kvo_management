@@ -9,9 +9,11 @@
 #import "KVOObservation.h"
 #import "KVOObservationInformation.h"
 
-static NSString* const KVOContext = @"KVOContext";
+static void* KVOContext = &KVOContext;
 
 @interface KVOObservation()
+
+- (void)stop;
 
 @end
 
@@ -35,21 +37,26 @@ static NSString* const KVOContext = @"KVOContext";
 
 - (void)dealloc
 {
-    [_information.observee removeObserver:self forKeyPath:_information.keypath context:(__bridge void*)KVOContext];
+    [self stop];
 }
 
 #pragma mark - Private methods
 
 - (void)start
 {
-    [_information.observee addObserver:self forKeyPath:_information.keypath options:0 context:(__bridge void*)KVOContext];
+    [_information.observee addObserver:self forKeyPath:_information.keypath options:0 context:KVOContext];
+}
+
+- (void)stop
+{
+    [_information.observee removeObserver:self forKeyPath:_information.keypath context:KVOContext];
 }
 
 #pragma mark - Override
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:_information.keypath] && object == _information.observee && context == (__bridge void*)KVOContext)
+    if ([keyPath isEqualToString:_information.keypath] && object == _information.observee && context == KVOContext)
     {
         _information.callback(_information.observee, change);
     }

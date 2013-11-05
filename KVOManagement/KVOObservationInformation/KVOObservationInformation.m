@@ -10,6 +10,6 @@
 
 @implementation KVOObservationInformation
 
-@synthesize observee, observer, callback = _callback, keypath;
+@synthesize observee = _observee, observer, callback = _callback, keypath;
 
 @end
