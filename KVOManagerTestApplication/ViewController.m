@@ -18,6 +18,11 @@
 
 @implementation Object
 
+-(void)dealloc
+{
+    NSLog(@"plop");
+}
+
 @end
 
 
@@ -39,7 +44,7 @@
 //    }];
     
     _object = [Object new];
-    [self observeObject:_object atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
+    [_object observeObject:self atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
         NSLog(@"object count changed");
         
     }];
@@ -53,13 +58,12 @@
 
 - (IBAction)selector:(id)sender
 {
-    self.count++;
     _object = nil;
 }
 
 - (IBAction)selectObject:(id)sender
 {
-    _object.count++;
+    self.count++;
 }
 
 @end

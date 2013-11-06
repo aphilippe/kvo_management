@@ -49,7 +49,13 @@ static void* KVOContext = &KVOContext;
 
 - (void)stop
 {
-    [_information.observee removeObserver:self forKeyPath:_information.keypath context:KVOContext];
+    // Avoid crash if we stop multiple time
+    dispatch_once(&removeObserverDispatchOnce, ^{
+        [_information.observee removeObserver:self forKeyPath:_information.keypath context:KVOContext];
+        
+        [self.delegate observationDidStop:self];
+    });
+    
 }
 
 #pragma mark - Override
@@ -58,7 +64,18 @@ static void* KVOContext = &KVOContext;
 {
     if ([keyPath isEqualToString:_information.keypath] && object == _information.observee && context == KVOContext)
     {
-        _information.callback(_information.observee, change);
+        if (self.information.observer == nil)
+        {
+            [self stop];
+        }
+        else
+        {
+            _information.callback(_information.observee, change);
+        }
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

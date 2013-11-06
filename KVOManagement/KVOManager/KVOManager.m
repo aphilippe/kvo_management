@@ -10,7 +10,7 @@
 #import "KVOObservation.h"
 #import "KVOObservationInformation.h"
 
-@interface KVOManager()
+@interface KVOManager() <KVOObservationDelegate>
 
 @property(nonatomic,readonly) NSMutableArray* observations;
 
@@ -39,6 +39,7 @@
 - (void)addObservation:(KVOObservation*)observation
 {
     [self.observations addObject:observation];
+    observation.delegate = self;
     [observation start];
 }
 
@@ -54,6 +55,14 @@
     }
     
     return _observations;
+}
+
+#pragma mark - KVOObservationDelegate
+
+- (void)observationDidStop:(KVOObservation *)observation
+{
+    // Stopped observation is delete from memory
+    [self.observations removeObject:observation];
 }
 
 @end
