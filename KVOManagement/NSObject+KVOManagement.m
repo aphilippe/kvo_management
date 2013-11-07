@@ -11,6 +11,7 @@
 #import "KVOManager.h"
 #import "KVOObservation.h"
 #import "KVOObservationInformation.h"
+#import "KVOToken.h"
 
 @interface NSObject()
 @property(nonatomic, readonly, strong) KVOManager* kvoManager;
@@ -25,7 +26,7 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
 
 #pragma mark - Public methods
 
-- (void)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback
+- (KVOToken*)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback
 {
     KVOObservationInformation* information = [[KVOObservationInformation alloc] init];
     information.observee = object;
@@ -35,7 +36,12 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
     
     KVOObservation* observation = [[KVOObservation alloc] initWithInformation:information];
     
-    [[object kvoManager] addObservation:observation];
+    return [[object kvoManager] addObservation:observation];
+}
+
+- (void)removeObservationWithToken:(KVOToken*)token
+{
+    [[token.observee kvoManager] removeObservationWithToken:token];
 }
 
 #pragma mark - Getters / Setters

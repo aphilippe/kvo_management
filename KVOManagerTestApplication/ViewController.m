@@ -29,6 +29,7 @@
 @interface ViewController ()
 {
     Object* _object;
+    KVOToken* _token;
 }
 
 @end
@@ -44,7 +45,7 @@
 //    }];
     
     _object = [Object new];
-    [_object observeObject:self atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
+    _token = [self observeObject:_object atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
         NSLog(@"object count changed");
         
     }];
@@ -58,12 +59,12 @@
 
 - (IBAction)selector:(id)sender
 {
-    _object = nil;
+    [self removeObservationWithToken:_token];
 }
 
 - (IBAction)selectObject:(id)sender
 {
-    self.count++;
+    _object.count++;
 }
 
 @end

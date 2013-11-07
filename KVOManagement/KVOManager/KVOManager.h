@@ -10,16 +10,19 @@
 #import "KVOManagementConstants.h"
 
 @class KVOObservation;
+@class KVOToken;
+
 @interface KVOManager : NSObject
 {
     __weak id _object;
-    NSMutableArray* _observations;
+    NSMutableDictionary* _observations;
 }
 
 // Lifre cycle
 - (id)initWithObject:(id)object;
 
 // Public methods
-- (void)addObservation:(KVOObservation*)observation;
+- (KVOToken*)addObservation:(KVOObservation*)observation;
+- (void)removeObservationWithToken:(KVOToken*)token;
 
 @end
