@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "KVOManagementConstants.h"
 
+@class KVOToken;
+
 @interface NSObject (KVOManagement)
 
-- (void)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback;
+- (KVOToken*)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback;
+- (void)removeObservationWithToken:(KVOToken*)token;
 
 @end

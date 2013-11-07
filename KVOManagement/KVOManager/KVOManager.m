@@ -9,10 +9,15 @@
 #import "KVOManager.h"
 #import "KVOObservation.h"
 #import "KVOObservationInformation.h"
+#import "KVOToken.h"
+
+static long _counter = 0;
 
 @interface KVOManager() <KVOObservationDelegate>
 
-@property(nonatomic,readonly) NSMutableArray* observations;
+@property(nonatomic,readonly) NSMutableDictionary* observations;
+
+- (KVOToken*)generateTokenForObservation:(KVOObservation*)observation;
 
 @end
 
@@ -36,25 +41,47 @@
 
 #pragma mark - Public methods
 
-- (void)addObservation:(KVOObservation*)observation
+- (KVOToken*)addObservation:(KVOObservation*)observation
 {
-    [self.observations addObject:observation];
+    KVOToken* token = [self generateTokenForObservation:observation];
+
+    [self.observations setValue:observation forKey:token.identifier];
     observation.delegate = self;
     [observation start];
+    
+    return token;
+}
+
+- (void)removeObservationWithToken:(KVOToken*)token
+{
+    [self.observations removeObjectForKey:token.identifier];
 }
 
 #pragma mark - Private methods
 
 #pragma mark Getters / Setters
 
-- (NSMutableArray*)observations
+- (NSMutableDictionary*)observations
 {
     if (_observations == nil)
     {
-        _observations = [[NSMutableArray alloc] init];
+        _observations = [[NSMutableDictionary alloc] init];
     }
     
     return _observations;
+}
+
+- (KVOToken*)generateTokenForObservation:(KVOObservation*)observation
+{
+    _counter++;
+    
+    NSString* identifier = [NSString stringWithFormat:@"%ld", _counter];
+    
+    KVOToken* token = [KVOToken new];
+    token.identifier = identifier;
+    token.observee = observation.information.observee;
+    
+    return token;
 }
 
 #pragma mark - KVOObservationDelegate
@@ -62,7 +89,10 @@
 - (void)observationDidStop:(KVOObservation *)observation
 {
     // Stopped observation is delete from memory
-    [self.observations removeObject:observation];
+    NSArray* tokens = [self.observations allKeysForObject:observation];
+    for (KVOToken* tok in tokens) {
+        [self.observations removeObjectForKey:tok];
+    }
 }
 
 @end
