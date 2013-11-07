@@ -23,7 +23,7 @@ You can add an observation with the new NSObject method :
 
 You call this method on the observer object. It's used for memory management.
 
-The observation will stop automaticaly when observer or observee are dealloc. You don't have to manage it.
+The observation will stop automatically when observer or observee are dealloc. You don't have to manage it.
 
 TODO
 ====
