@@ -41,3 +41,8 @@ TODO
 - Customisation
 - Binding
 - Predicate
+
+Updates
+=======
+
+The project is under ative modifications, I don't use version number so come back regularly if you want the last version.
