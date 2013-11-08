@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 #import "KVOManager.h"
 #import "KVOObservation.h"
-#import "KVOObservationInformation.h"
 #import "KVOToken.h"
 
 @interface NSObject()
@@ -30,13 +29,21 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
 {
     KVOObservationInformation* information = [[KVOObservationInformation alloc] init];
     information.observee = object;
-    information.observer = self;
     information.keypath = keypath;
     information.callback = callback;
     
+    return [self observeWithInformation:information];
+}
+
+- (KVOToken*)observeWithInformation:(KVOObservationInformation*)information
+{
+    if (information.observer == nil)
+    {
+        information.observer = self;
+    }
     KVOObservation* observation = [[KVOObservation alloc] initWithInformation:information];
     
-    return [[object kvoManager] addObservation:observation];
+    return [[information.observee kvoManager] addObservation:observation];
 }
 
 - (void)removeObservationWithToken:(KVOToken*)token
