@@ -48,13 +48,12 @@
     _object = [Object new];
     _information = [[KVOObservationInformation alloc] init];
     _information.observee = self;
-    _information.observer = _object;
     _information.keypath = @"count";
     _information.callback = ^(id object, NSDictionary *change) {
         NSLog(@"object count changed");
     };
     
-    _token = [self observeWithInformation:_information];
+    _token = [_object observeWithInformation:_information];
 }
 
 - (void)didReceiveMemoryWarning

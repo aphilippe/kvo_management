@@ -37,10 +37,7 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
 
 - (KVOToken*)observeWithInformation:(KVOObservationInformation*)information
 {
-    if (information.observer == nil)
-    {
-        information.observer = self;
-    }
+    [self validateInformation:&information];
     KVOObservation* observation = [[KVOObservation alloc] initWithInformation:information];
     
     return [[information.observee kvoManager] addObservation:observation];
@@ -64,6 +61,36 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
     }
     
     return manager;
+}
+
+#pragma mark - Private
+
+- (void)validateInformation:(KVOObservationInformation**)information
+{
+    // Observer
+    if ((*information).observer == nil)
+    {
+        (*information).observer = self;
+    }
+    
+    // Observee
+    if ((*information).observee == nil)
+    {
+        [NSException raise:@"KVOManagementException" format:@"You can not add observation wihtout an observee"];
+    }
+    
+    // Keypath
+    // TODO : trully validate the keypath
+    if ((*information).keypath.length == 0)
+    {
+        [NSException raise:@"KVOManagementException" format:@"You can not add observation wihtout a keypath"];
+    }
+    
+    // Callback
+    if ((*information).callback == nil)
+    {
+        [NSException raise:@"KVOManagementException" format:@"You can not add observation wihtout a callback"];
+    }
 }
 
 @end
