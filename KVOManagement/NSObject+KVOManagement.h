@@ -16,7 +16,7 @@
 
 - (KVOToken*)observeObject:(id)object atKeypath:(NSString*)keypath andBlock:(KVOManagementBlockCallback)callback;
 
-// Will always change observer with self
+// Will change observer with self if nil
 - (KVOToken*)observeWithInformation:(KVOObservationInformation*)information;
 
 - (void)removeObservationWithToken:(KVOToken*)token;

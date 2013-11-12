@@ -49,7 +49,7 @@
     _information = [[KVOObservationInformation alloc] init];
     _information.observee = self;
     _information.keypath = @"count";
-    _information.callback = ^(id object, NSDictionary *change) {
+    _information.callback = ^(KVOObservationInformation* object, NSDictionary *change) {
         NSLog(@"object count changed");
     };
     

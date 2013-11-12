@@ -70,7 +70,7 @@ static void* KVOContext = &KVOContext;
         }
         else
         {
-            _information.callback(_information.observee, change);
+            _information.callback(_information, change);
         }
     }
     else
