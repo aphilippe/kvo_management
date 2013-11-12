@@ -20,7 +20,7 @@
 
 -(void)dealloc
 {
-    NSLog(@"plop");
+    NSLog(@"object dealloc");
 }
 
 @end
@@ -30,6 +30,7 @@
 {
     Object* _object;
     KVOToken* _token;
+    KVOObservationInformation* _information;
 }
 
 @end
@@ -45,10 +46,14 @@
 //    }];
     
     _object = [Object new];
-    _token = [self observeObject:_object atKeypath:@"count" andBlock:^(id object, NSDictionary *change) {
+    _information = [[KVOObservationInformation alloc] init];
+    _information.observee = self;
+    _information.keypath = @"count";
+    _information.callback = ^(KVOObservationInformation* object, NSDictionary *change) {
         NSLog(@"object count changed");
-        
-    }];
+    };
+    
+    _token = [_object observeWithInformation:_information];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,12 +64,13 @@
 
 - (IBAction)selector:(id)sender
 {
-    [self removeObservationWithToken:_token];
+//    [self removeObservationWithToken:_token];
+    _object = nil;
 }
 
 - (IBAction)selectObject:(id)sender
 {
-    _object.count++;
+    self.count++;
 }
 
 @end

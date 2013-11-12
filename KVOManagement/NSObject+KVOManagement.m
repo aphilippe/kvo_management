@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 #import "KVOManager.h"
 #import "KVOObservation.h"
-#import "KVOObservationInformation.h"
 #import "KVOToken.h"
 
 @interface NSObject()
@@ -30,13 +29,18 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
 {
     KVOObservationInformation* information = [[KVOObservationInformation alloc] init];
     information.observee = object;
-    information.observer = self;
     information.keypath = keypath;
     information.callback = callback;
     
+    return [self observeWithInformation:information];
+}
+
+- (KVOToken*)observeWithInformation:(KVOObservationInformation*)information
+{
+    [self validateInformation:&information];
     KVOObservation* observation = [[KVOObservation alloc] initWithInformation:information];
     
-    return [[object kvoManager] addObservation:observation];
+    return [[information.observee kvoManager] addObservation:observation];
 }
 
 - (void)removeObservationWithToken:(KVOToken*)token
@@ -57,6 +61,36 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
     }
     
     return manager;
+}
+
+#pragma mark - Private
+
+- (void)validateInformation:(KVOObservationInformation**)information
+{
+    // Observer
+    if ((*information).observer == nil)
+    {
+        (*information).observer = self;
+    }
+    
+    // Observee
+    if ((*information).observee == nil)
+    {
+        [NSException raise:@"KVOManagementException" format:@"You can not add observation wihtout an observee"];
+    }
+    
+    // Keypath
+    // TODO : trully validate the keypath
+    if ((*information).keypath.length == 0)
+    {
+        [NSException raise:@"KVOManagementException" format:@"You can not add observation wihtout a keypath"];
+    }
+    
+    // Callback
+    if ((*information).callback == nil)
+    {
+        [NSException raise:@"KVOManagementException" format:@"You can not add observation wihtout a callback"];
+    }
 }
 
 @end
