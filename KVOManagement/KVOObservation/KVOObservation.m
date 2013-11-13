@@ -70,7 +70,17 @@ static void* KVOContext = &KVOContext;
         }
         else
         {
-            _information.callback(_information, change);
+            if (_information.queue == nil)
+            {
+                _information.callback(_information, change);
+            }
+            else
+            {
+                dispatch_async(_information.queue, ^{
+                    _information.callback(_information, change);
+                });
+            }
+            
         }
     }
     else

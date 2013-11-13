@@ -19,5 +19,6 @@
 @property (nonatomic, unsafe_unretained)id observee;
 @property (nonatomic, strong)KVOManagementBlockCallback callback;
 @property (nonatomic, copy)NSString* keypath;
+@property (nonatomic, readwrite)dispatch_queue_t queue;
 
 @end

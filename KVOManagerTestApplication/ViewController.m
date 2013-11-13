@@ -61,6 +61,7 @@
         (*infos).callback = ^(KVOObservationInformation* object, NSDictionary* change){
             NSLog(@"Object count changed");
         };
+        (*infos).queue = dispatch_get_main_queue();
     }];
 }
 
@@ -78,7 +79,9 @@
 
 - (IBAction)selectObject:(id)sender
 {
-    _object.count++;
+    dispatch_async(dispatch_queue_create("plop", NULL), ^{
+           _object.count++;
+    });
 }
 
 @end
