@@ -10,6 +10,8 @@
 #import "KVOManagementConstants.h"
 #import "KVOObservationInformation.h"
 
+typedef void (^KVOObservationInformationBlock)(KVOObservationInformation** infos);
+
 @class KVOToken;
 
 @interface NSObject (KVOManagement)
@@ -18,6 +20,7 @@
 
 // Will change observer with self if nil
 - (KVOToken*)observeWithInformation:(KVOObservationInformation*)information;
+- (KVOToken*)observeWithInformationBlock:(KVOObservationInformationBlock)block;
 
 - (void)removeObservationWithToken:(KVOToken*)token;
 

@@ -46,14 +46,22 @@
 //    }];
     
     _object = [Object new];
-    _information = [[KVOObservationInformation alloc] init];
-    _information.observee = self;
-    _information.keypath = @"count";
-    _information.callback = ^(KVOObservationInformation* object, NSDictionary *change) {
-        NSLog(@"object count changed");
-    };
+//    _information = [[KVOObservationInformation alloc] init];
+//    _information.observee = self;
+//    _information.keypath = @"count";
+//    _information.callback = ^(KVOObservationInformation* object, NSDictionary *change) {
+//        NSLog(@"object count changed");
+//    };
+//    
+//    _token = [_object observeWithInformation:_information];
     
-    _token = [_object observeWithInformation:_information];
+    _token = [self observeWithInformationBlock:^(KVOObservationInformation *__autoreleasing *infos) {
+        (*infos).observee = _object;
+        (*infos).keypath = @"count";
+        (*infos).callback = ^(KVOObservationInformation* object, NSDictionary* change){
+            NSLog(@"Object count changed");
+        };
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +78,7 @@
 
 - (IBAction)selectObject:(id)sender
 {
-    self.count++;
+    _object.count++;
 }
 
 @end

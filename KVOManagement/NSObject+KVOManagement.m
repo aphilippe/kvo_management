@@ -43,6 +43,13 @@ static const NSString* KVOManagementManagerKey = @"com.tkm.KVOManagement.kvoMana
     return [[information.observee kvoManager] addObservation:observation];
 }
 
+- (KVOToken*)observeWithInformationBlock:(KVOObservationInformationBlock)block
+{
+    KVOObservationInformation* information = [KVOObservationInformation new];
+    block(&information);
+    return [self observeWithInformation:information];
+}
+
 - (void)removeObservationWithToken:(KVOToken*)token
 {
     [[token.observee kvoManager] removeObservationWithToken:token];
